@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  frps:
+    image: snowdreamtech/frps:alpine
+    restart: always
+    network_mode: host
+    volumes:
+      - ./frp/frps.ini:/etc/frp/frps.ini:ro
+    command: ["-c", "/etc/frp/frps.ini"]

@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  frpc:
+    image: snowdreamtech/frpc:latest
+    restart: unless-stopped
+    volumes:
+      - ./frp/frpc.ini:/etc/frp/frpc.ini:ro
+    command: ["-c", "/etc/frp/frpc.ini"]
+    network_mode: bridge
