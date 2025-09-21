@@ -1,7 +1,0 @@
-services:
-  frps:
-    image: snowdreamtech/frps:alpine
-    restart: always
-    network_mode: host
-    volumes:
-      - ./frp/frps.toml:/etc/frp/frps.toml:ro
