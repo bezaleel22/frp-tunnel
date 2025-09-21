@@ -2,8 +2,8 @@ services:
   proxy-tunnel:
     build:
       context: .
-      args:
-        HOST_SSH_PORT: ${HOST_SSH_PORT}
+    environment:
+      HOST_SSH_PORT: ${HOST_SSH_PORT}
     networks:
       - dokploy-network
     extra_hosts:
