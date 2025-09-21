@@ -1,21 +1,14 @@
-# Base image
-FROM ubuntu:24.04
+FROM nginx:alpine
+RUN apk add --no-cache gettext
 
-# Install OpenSSH server
-RUN apt-get update && \
-    apt-get install -y openssh-server && \
-    mkdir /var/run/sshd && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+ARG HOST_SSH_PORT=5555
+ENV HOST_SSH_PORT=${HOST_SSH_PORT}
 
-# Configure SSH
-RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
-    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+COPY nginx.conf.template /etc/nginx/conf.d/default.conf.template
 
-# Create root SSH directory
-RUN mkdir -p /root/.ssh && chmod 700 /root/.ssh
+# Substitute variable at build-time
+RUN envsubst '$HOST_SSH_PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
 
-# Expose SSH port
-EXPOSE 22
+EXPOSE 80
 
-# Start SSH daemon
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["nginx", "-g", "daemon off;"]

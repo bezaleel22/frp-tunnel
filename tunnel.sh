@@ -1,6 +1,7 @@
 #!/bin/bash
 #
-# tunnel.sh - SSH tunnel manager with automatic systemd service and removal
+# tunnel.sh - SSH tunnel manager for exposing local service to the internet
+# Supports remote port forwarding (-R), .env, systemd auto-install, logging, and removal
 #
 
 # === Load .env ===
@@ -12,7 +13,7 @@ else
     exit 1
 fi
 
-# === FUNCTIONS ===
+# === Functions ===
 install_service() {
     SERVICE_FILE="/etc/systemd/system/${SERVICE_NAME}.service"
     SUDO="sudo"
@@ -25,7 +26,7 @@ install_service() {
     echo "Installing systemd service ${SERVICE_NAME}..."
     $SUDO tee $SERVICE_FILE > /dev/null <<EOF
 [Unit]
-Description=Persistent SSH Tunnel for local port ${LOCAL_PORT}
+Description=SSH Tunnel exposing local service to internet
 After=network.target
 
 [Service]
@@ -33,8 +34,11 @@ Type=simple
 User=${USER}
 Environment="REMOTE_USER=${REMOTE_USER}"
 Environment="REMOTE_HOST=${REMOTE_HOST}"
+Environment="REMOTE_PORT=${REMOTE_PORT}"
 Environment="SSH_KEY=${SSH_KEY}"
+Environment="LOCAL_BIND=${LOCAL_BIND}"
 Environment="LOCAL_PORT=${LOCAL_PORT}"
+Environment="REMOTE_BIND=${REMOTE_BIND}"
 Environment="REMOTE_SERVICE_PORT=${REMOTE_SERVICE_PORT}"
 Environment="LOGFILE=${LOGFILE}"
 ExecStart=${PWD}/$(basename $0) start
@@ -58,13 +62,14 @@ EOF
 
 start_tunnel() {
     echo "Starting SSH tunnel..."
-    echo "Forwarding localhost:${LOCAL_PORT} -> localhost:${REMOTE_SERVICE_PORT} on ${REMOTE_USER}@${REMOTE_HOST}"
-    exec ssh -N \
+    echo "Exposing local ${LOCAL_BIND}:${LOCAL_PORT} to ${REMOTE_HOST}:${REMOTE_SERVICE_PORT}"
+    ssh -N \
         -o "ExitOnForwardFailure yes" \
         -o "ServerAliveInterval 60" \
         -o "ServerAliveCountMax 3" \
-        -L 127.0.0.1:${LOCAL_PORT}:127.0.0.1:${REMOTE_SERVICE_PORT} \
+        -R ${REMOTE_BIND}:${REMOTE_SERVICE_PORT}:${LOCAL_BIND}:${LOCAL_PORT} \
         -i "${SSH_KEY}" \
+        -p ${REMOTE_PORT} \
         ${REMOTE_USER}@${REMOTE_HOST} >> "${LOGFILE}" 2>&1
 }
 
@@ -89,7 +94,7 @@ remove_tunnel() {
     echo "Service ${SERVICE_NAME} removed."
 }
 
-# === MAIN ===
+# === Main ===
 case "$1" in
     install)
         install_service

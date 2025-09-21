@@ -1,19 +1,21 @@
-version: "3.8"
-
 services:
-  tunnel-proxy:
-    build: .
-    ports:
-      - "2222:22"  # SSH port for your local machine
-    restart: always
+  proxy-tunnel:
+    build:
+      context: .
+      args:
+        HOST_SSH_PORT: ${HOST_SSH_PORT}
     networks:
       - dokploy-network
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     labels:
+      # Traefik TCP router to expose SSH port (example)
       - "traefik.enable=true"
-      - "traefik.http.routers.<unique-name>.rule=Host(`your-domain.com`)"
-      - "traefik.http.routers.<unique-name>.entrypoints=websecure"
-      - "traefik.http.routers.<unique-name>.tls.certResolver=letsencrypt"
-      - "traefik.http.services.<unique-name>.loadbalancer.server.port=3000"
+      - "traefik.tcp.routers.node-tunnel.rule=HostSNI(`${DOMAIN_NAME}`)"
+      - "traefik.tcp.routers.node-tunnel.entrypoints=websecure"
+      - "traefik.tcp.routers.node-tunnel.tls=true"
+      - "traefik.tcp.services.node-tunnel.loadbalancer.server.port=80"
+
 networks:
   dokploy-network:
     external: true

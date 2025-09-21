@@ -1,32 +1,14 @@
-# Ignore environment files with sensitive credentials
+# Ignore sensitive files
 .env
-.env.*
-
-# Ignore log files
 *.log
-logs/
-tunnel.log
-
-# Ignore system files
 *.pid
-*.sock
 
-# Ignore OS-specific files
+# Ignore OS files
 .DS_Store
 Thumbs.db
 
-# Ignore editor files
+# Ignore editor temporary files
 *.swp
 *.swo
 *.bak
 *.tmp
-
-# Ignore node_modules (if you ever add Node scripts)
-node_modules/
-
-# Ignore compiled binaries (if any)
-*.out
-*.o
-
-# Ignore systemd temporary files (if any)
-*.service~ 
