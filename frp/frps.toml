@@ -1,9 +1,15 @@
-bind_port = 7000
-vhost_http_port = 8080
+bindAddr = "0.0.0.0"
+bindPort = 7000
 
-dashboard_port = 7500
-dashboard_user = "admin"
-dashboard_pwd  = "admin"
+# HTTP proxy
+vhostHTTPPort = 8080
 
-[auth]
-token = "myVeryStrongToken123"
+# Dashboard
+webServer.addr = "0.0.0.0"
+webServer.port = 7500
+webServer.user = "admin"
+webServer.password = "admin"
+
+# Authentication
+auth.method = "token"
+auth.token = "super_secret_token"

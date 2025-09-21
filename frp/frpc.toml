@@ -1,19 +1,19 @@
-server_addr = "37.60.235.96"   # replace with public IP or domain
-server_port = 7000
+serverAddr = "37.60.235.96"
+serverPort = 7000
 
-[auth]
-token = "myVeryStrongToken123"
+auth.method = "token"
+auth.token = "super_secret_token"
 
 [[proxies]]
-name = "ssh_homelab"
+name = "homelab_ssh"
 type = "tcp"
-local_ip = "127.0.0.1"
-local_port = 22
-remote_port = 6000
+localIP = "127.0.0.1"
+localPort = 22
+remotePort = 6000
 
 [[proxies]]
-name = "web_homelab"
+name = "homelab_http"
 type = "http"
-local_ip = "127.0.0.1"
-local_port = 80
+localIP = "127.0.0.1"
+localPort = 80
 custom_domains = ["lab.beznet.org"] # use your own domain with DNS A record pointing to your FRPS server IP
