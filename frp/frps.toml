@@ -1,9 +1,9 @@
-bindPort = 7000
-vhostHTTPPort = 8080
+bind_port = 7000
+vhost_http_port = 8080
 
-dashboardPort = 7500
-dashboardUser = "admin"
-dashboardPwd  = "admin"
+dashboard_port = 7500
+dashboard_user = "admin"
+dashboard_pwd  = "admin"
 
 [auth]
 token = "myVeryStrongToken123"
