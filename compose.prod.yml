@@ -4,5 +4,4 @@ services:
     restart: always
     network_mode: host
     volumes:
-      - ./frp/frps.ini:/etc/frp/frps.ini:ro
-    command: ["-c", "/etc/frp/frps.ini"]
+      - ./frp/frps.toml:/etc/frp/frps.toml:ro
