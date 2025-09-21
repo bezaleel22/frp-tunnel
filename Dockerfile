@@ -1,14 +1,17 @@
+# Dockerfile
 FROM nginx:alpine
-RUN apk add --no-cache gettext
 
-ARG HOST_SSH_PORT=5555
-ENV HOST_SSH_PORT=${HOST_SSH_PORT}
+# Install envsubst to substitute env vars in nginx config
+RUN apk add --no-cache bash gettext
 
+# Copy nginx template
 COPY nginx.conf.template /etc/nginx/conf.d/default.conf.template
 
-# Substitute variable at build-time
-RUN envsubst '$HOST_SSH_PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
+# Entrypoint script to replace env vars in nginx template
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
+# Expose standard HTTP port
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["/entrypoint.sh"]
