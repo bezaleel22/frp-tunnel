@@ -1,15 +1,14 @@
+version: "3.8"
+
 services:
   proxy-tunnel:
-    build:
-      context: .
-    environment:
-      HOST_SSH_PORT: ${HOST_SSH_PORT}
+    image: alpine/socat
+    command: -v tcp-listen:80,fork,reuseaddr tcp-connect:host.docker.internal:${HOST_SSH_PORT}
     networks:
       - dokploy-network
     extra_hosts:
       - "host.docker.internal:host-gateway"
     labels:
-      # Traefik TCP router to expose SSH port (example)
       - "traefik.enable=true"
       - "traefik.tcp.routers.node-tunnel.rule=HostSNI(`${DOMAIN_NAME}`)"
       - "traefik.tcp.routers.node-tunnel.entrypoints=websecure"
