@@ -1,14 +1,14 @@
 #!/bin/sh
 
-if [ -z "$HOST_SSH_PORT" ]; then
-  echo "ERROR: HOST_SSH_PORT is not set!"
+if [ -z "$VPS_TUNNEL_PORT" ]; then
+  echo "ERROR: VPS_TUNNEL_PORT is not set!"
   exit 1
 fi
 
-# Substitute HOST_SSH_PORT in nginx template
-envsubst '$HOST_SSH_PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
+# Substitute env vars in nginx template
+envsubst '$VPS_TUNNEL_PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
 
-# Show final config (for debugging)
+echo ">>> Final nginx.conf:"
 cat /etc/nginx/conf.d/default.conf
 
 # Start nginx
