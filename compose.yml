@@ -22,10 +22,11 @@ services:
     networks:
       - dokploy-network
     environment:
-      VPS_TUNNEL_PORT: 3001   # The SSH reverse tunnel port on VPS
+      VPS_TUNNEL_PORT: 8000   # The SSH reverse tunnel port on VPS
       DOMAIN_NAME: homelab.beznet.org
-    expose:
+    ports:
       - 80
+      - 8000:8000
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.proxy-tunnel.rule=Host(`homelab.beznet.org`)"
