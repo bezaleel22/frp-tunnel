@@ -7,7 +7,7 @@ services:
       - PGID=1000
       - TZ=Africa/Lagos
       - PASSWORD_ACCESS=yes
-      - USER_PASSWORD=123456
+      - PUBLIC_KEY=${PUBLIC_KEY}
       - USER_NAME=localtunnel
       - SUDO_ACCESS=no
     ports:
