@@ -9,6 +9,8 @@ services:
       - PASSWORD_ACCESS=yes
       - PUBLIC_KEY=${PUBLIC_KEY}
       - USER_NAME=localtunnel
+      - REMOTE_FORWARDING=
+      - GATEWAY_PORTS=yes
       - SUDO_ACCESS=no
     ports:
       - "2222:2222"   # optional for external access
