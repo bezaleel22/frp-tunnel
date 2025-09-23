@@ -1,4 +1,19 @@
 services:
+  ssh-server:
+    image: linuxserver/openssh-server
+    container_name: ssh-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Africa/Lagos
+      - PASSWORD_ACCESS=no
+      - USER_NAME=localtunnel
+      - SUDO_ACCESS=no
+    ports:
+      - "2222:22"   # optional for external access
+    networks:
+      - dokploy-network
+
   proxy-tunnel:
     build: .
     networks:
