@@ -7,6 +7,8 @@ services:
     environment:
       VPS_TUNNEL_PORT: 3001   # The remote SSH tunnel port
       DOMAIN_NAME: homelab.beznet.org
+    expose:
+      - 80
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.proxy-tunnel.rule=Host(`${DOMAIN_NAME}`)"
