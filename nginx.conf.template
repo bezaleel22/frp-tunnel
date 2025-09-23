@@ -2,7 +2,7 @@ server {
     listen 80;
 
     location / {
-        # Forward traffic to VPS host port (SSH reverse tunnel)
+        # Forward traffic to the VPS host SSH tunnel port
         proxy_pass http://host.docker.internal:${VPS_TUNNEL_PORT};
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;

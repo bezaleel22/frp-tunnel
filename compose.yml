@@ -1,8 +1,13 @@
 services:
   proxy-tunnel:
-    image: nginx:alpine
+    build: .
     networks:
       - dokploy-network
+    environment:
+      VPS_TUNNEL_PORT: 3001   # The SSH reverse tunnel port on VPS
+      DOMAIN_NAME: homelab.beznet.org
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     expose:
       - 80
     labels:
