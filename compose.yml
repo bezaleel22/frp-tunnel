@@ -22,7 +22,7 @@ services:
     networks:
       - dokploy-network
     environment:
-      VPS_TUNNEL_PORT: 8000   # The SSH reverse tunnel port on VPS
+      VPS_TUNNEL_PORT: 3001   # The SSH reverse tunnel port on VPS
       DOMAIN_NAME: homelab.beznet.org
     ports:
       - 8000:80
