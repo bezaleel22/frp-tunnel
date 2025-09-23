@@ -10,7 +10,7 @@ services:
       - USER_NAME=localtunnel
       - SUDO_ACCESS=no
     ports:
-      - "2222:22"   # optional for external access
+      - "2222:2222"   # optional for external access
     networks:
       - dokploy-network
 
