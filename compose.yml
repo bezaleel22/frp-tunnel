@@ -6,6 +6,6 @@ services:
     restart: always
     volumes:
       - ./frp/frpc.toml:/etc/frp/frpc.toml:ro
-    # Optional: expose the web UI for frpc (if enabled in toml)
+    command: ["-c", "/etc/frp/frpc.toml"]
     ports:
       - "7400:7400"
