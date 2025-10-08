@@ -1,14 +1,13 @@
 services:
   frps:
-    image: snowdreamtech/frps:alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - "7000:7000"        # frps bind_port (TCP) for client connection
       - "7500:7500"        # dashboard/web UI (if enabled)
       - "8080:8080"        # vhost HTTP (if using HTTP proxy)
-    volumes:
-      - /etc/frp/frps.toml:/etc/frp/frps.toml:ro
-    command: ["-c", "/etc/frp/frps.toml"]
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.proxy-tunnel.rule=Host(`${DOMAIN_NAME}`)"
