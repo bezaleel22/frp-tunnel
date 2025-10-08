@@ -4,8 +4,8 @@ server_addr = "37.60.235.96"
 server_port = 7000
 
 # Authentication must match frps.toml
-auth.method = "token"
-auth.token = "your_secret_token"
+# auth.method = "token"
+# auth.token = "your_secret_token"
 
 # Optional: enable client web UI (useful for debugging)
 # webServer.addr = "0.0.0.0"

@@ -12,8 +12,8 @@ webServer.user = "admin"
 webServer.password = "admin"
 
 # Authentication (must match client)
-auth.method = "token"
-auth.token = "your_secret_token"
+# auth.method = "token"
+# auth.token = "your_secret_token"
 
 # (Optional) Transport tuning — minimal defaults are OK
 transport.maxPoolCount = 5
