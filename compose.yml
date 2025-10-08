@@ -1,0 +1,11 @@
+version: "3.8"
+services:
+  frpc:
+    image: snowdreamtech/frpc:alpine
+    container_name: frpc
+    restart: always
+    volumes:
+      - ./frp/frpc.toml:/etc/frp/frpc.toml:ro
+    # Optional: expose the web UI for frpc (if enabled in toml)
+    ports:
+      - "7400:7400"
