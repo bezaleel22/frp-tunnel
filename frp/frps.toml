@@ -2,19 +2,19 @@ bindAddr = "0.0.0.0"
 bindPort = 7000
 
 # HTTP / HTTPS vhost ports (for http / https type proxies)
-vhost_http_port = 8080
-vhost_https_port = 8443
+vhostHTTPPort = 8080
+vhostHTTPSPort = 8443
 
 # Dashboard / web UI configuration
-web_server.addr = "0.0.0.0"
-web_server.port = 7500
-web_server.user = "admin"
-web_server.password = "admin123"
+webServer.addr = "127.0.0.1"
+webServer.port = 7500
+webServer.user = "admin"
+webServer.password = "admin"
 
 # Authentication (must match client)
 auth.method = "token"
 auth.token = "your_secret_token"
 
 # (Optional) Transport tuning — minimal defaults are OK
-transport.max_pool_count = 5
+transport.maxPoolCount = 5
 
