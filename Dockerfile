@@ -10,7 +10,7 @@ WORKDIR /app
 COPY ./config/server.toml .
 
 # Render the template
-RUN sed "s|\${PRIVATE_KEY}|${PRIVATE_KEY}|g" server.toml.template > rathole.server.toml
+RUN sed "s|\${PRIVATE_KEY}|${PRIVATE_KEY}|g" server.toml > rathole.server.toml
 
 # 🧱 Stage 2 — Final Rathole image
 FROM rapiz1/rathole:v0.5.0
