@@ -1,0 +1,15 @@
+[client]
+remote_addr = "37.60.235.96:2333"
+
+[client.transport]
+type = "noise"
+
+[client.transport.noise]
+remote_public_key = "public_key"
+
+# single client per tunnels pair
+
+# portal
+[client.services.portal]
+token = "secret_token_1"
+local_addr = "127.0.0.1:555"

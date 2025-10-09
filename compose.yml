@@ -1,11 +1,10 @@
-version: "3.8"
-services:
-  frpc:
-    image: snowdreamtech/frpc:alpine
-    container_name: frpc
-    restart: always
+  rathole:
+    image: rapiz1/rathole:v0.5.0
+    container_name: rathole
+    command: --client /config/rathole.client.toml
+    restart: unless-stopped
+    network_mode: host
     volumes:
-      - ./frp/frpc.toml:/etc/frp/frpc.toml:ro
-    command: ["-c", "/etc/frp/frpc.toml"]
-    ports:
-      - "7400:7400"
+      - ./config/client.toml:/config/rathole.client.toml:ro
+    networks:
+      - proxy
