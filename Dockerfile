@@ -1,6 +1,12 @@
-# Use the official Rathole image as the base
+
 FROM rapiz1/rathole:v0.5.0
-COPY ./config/server.toml /config/rathole.server.toml
+RUN apk add --no-cache gettext
+
+# Copy the template and entrypoint
+COPY ./config/server.toml.template /config/server.toml.template
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 EXPOSE 2333
 
-CMD ["--server", "/config/rathole.server.toml"]
+ENTRYPOINT ["/entrypoint.sh"]

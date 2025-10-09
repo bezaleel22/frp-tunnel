@@ -1,3 +1,4 @@
+services:  
   rathole:
     image: rapiz1/rathole:v0.5.0
     container_name: rathole
@@ -6,5 +7,3 @@
     network_mode: host
     volumes:
       - ./config/client.toml:/config/rathole.client.toml:ro
-    networks:
-      - proxy

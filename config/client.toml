@@ -5,7 +5,7 @@ remote_addr = "37.60.235.96:2333"
 type = "noise"
 
 [client.transport.noise]
-remote_public_key = "public_key"
+remote_public_key = "7y0rlQKYvEDdjM4xZ26G2Tk6CS8Dx+G1ZIu5M3vlxjc="
 
 # single client per tunnels pair
 
