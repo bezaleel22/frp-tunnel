@@ -9,4 +9,4 @@ local_private_key = "${PRIVATE_KEY}"
 
 [server.services.portal]
 token = "secret_token_1"
-bind_addr = "0.0.0.0:5555"
+bind_addr = "0.0.0.0:3000"
