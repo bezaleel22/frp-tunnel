@@ -1,4 +1,5 @@
 # Ignore sensitive files
+client.*
 .env
 *.log
 *.pid

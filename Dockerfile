@@ -18,6 +18,4 @@ FROM rapiz1/rathole:v0.5.0
 # Copy the rendered config from the builder stage
 COPY --from=builder /app/rathole.server.toml /config/rathole.server.toml
 
-EXPOSE 2333
-
 CMD ["--server", "/config/rathole.server.toml"]
