@@ -1,19 +1,23 @@
-# Use the official Rathole image
-FROM rapiz1/rathole:v0.5.0
+# 🧱 Stage 1 — Build the config using sed
+FROM alpine:3.19 AS builder
 
-# Set environment variable at build time (or pass with --build-arg)
 ARG PRIVATE_KEY
 ENV PRIVATE_KEY=$PRIVATE_KEY
 
-# Copy the template into the image
-COPY ./config/server.toml /config/server.toml.template
+WORKDIR /app
 
-# Render the template using sed during build
-RUN sed "s|\${PRIVATE_KEY}|${PRIVATE_KEY}|g" /config/server.toml.template > /config/rathole.server.toml \
-    && rm /config/server.toml.template
+# Copy the template
+COPY ./config/server.toml .
 
-# Expose the Rathole server port (optional, depends on your config)
+# Render the template
+RUN sed "s|\${PRIVATE_KEY}|${PRIVATE_KEY}|g" server.toml.template > rathole.server.toml
+
+# 🧱 Stage 2 — Final Rathole image
+FROM rapiz1/rathole:v0.5.0
+
+# Copy the rendered config from the builder stage
+COPY --from=builder /app/rathole.server.toml /config/rathole.server.toml
+
 EXPOSE 2333
 
-# Run Rathole directly
 CMD ["rathole", "--server", "/config/rathole.server.toml"]
