@@ -20,4 +20,4 @@ COPY --from=builder /app/rathole.server.toml /config/rathole.server.toml
 
 EXPOSE 2333
 
-CMD ["rathole", "--server", "/config/rathole.server.toml"]
+CMD ["--server", "/config/rathole.server.toml"]
